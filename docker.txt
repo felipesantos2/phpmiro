@@ -1,0 +1,25 @@
+
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v "$(pwd):/var/www/html" \
+    -w /var/www/html \
+    composer/composer:latest \
+    composer require symfony/dotenv
+
+
+    
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v "$(pwd):/var/www/html" \
+    -w /var/www/html \
+    composer/composer:latest \
+    composer require --dev phpunit/phpuni
+
+    
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v "$(pwd):/var/www/html" \
+    -w /var/www/html \
+    composer/composer:latest \
+    composer require symfony/var-dumper
+

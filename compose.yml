@@ -1,7 +1,7 @@
 services:
   php:
     image: php84-alpine
-    container_name: phpytests
+    container_name: phptests
     build:
       context: .
     ports:

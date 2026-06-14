@@ -1,13 +1,11 @@
-<h1>
-    Olá, mundo!
-</h1>
-
 <?php
 
-$bootstrap = require dirname(__FILE__, 2) . '/core/bootstrap.php'; // core path
+if(file_exists($bootstrapFile = __DIR__ . '/../core/bootstrap.php')) {
+    require __DIR__ . '/../vendor/autoload.php';
 
-if(file_exists($bootstrap)) {
-    require dirname(__FILE__, 2) . '/vendor/autoload.php';
-    require dirname(__FILE__, 2) . '/routes/web.php';
+    require $bootstrapFile;
+    require __DIR__ . '/../routes/web.php';
+} else {
+    throw new Exception('Erro!')
 }
 

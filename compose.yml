@@ -1,0 +1,12 @@
+services:
+  php:
+    image: php84-alpine
+    container_name: phpytests
+    build:
+      context: .
+    ports:
+      - '8000:8000'
+    volumes:
+      - '.:/app'
+
+

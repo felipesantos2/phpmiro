@@ -1,8 +1,10 @@
 FROM php:8.4-alpine3.24
 
+ENV APP_DIR /app
+
 RUN echo "UTC" > /etc/timezone
 
-WORKDIR /app
+WORKDIR $APP_DIR
 
 COPY . .
 
@@ -29,4 +31,4 @@ RUN curl -sS https://getcomposer.org/installer -o composer-setup.php && \
 
 EXPOSE 8000
 
-CMD [ "php", "-S", "localhost:8000", "-t","public/" ]
+# CMD [ "php", "-S", "0.0.0.0:8000", "-t",  "public/index.php" ]

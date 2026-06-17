@@ -2,19 +2,59 @@
 
 namespace app\controllers;
 
-use Twig\Environment;
-use Twig\Loader\FilesystemLoader;
+use app\traits\View;
 
-class Controller
+/**
+ * Abstract controller with basic methods and a routing pattern
+ *
+ * GET	        /photos	              -> index
+ * GET	        /photos/create	      -> create
+ * POST	        /photos	              -> store
+ * GET	        /photos/{photo}	      -> show
+ * GET	        /photos/{photo}/edit  -> edit
+ * PUT/PATCH	/photos/{photo}	      -> update
+ * DELETE	    /photos/{photo}	      -> destroy
+ *
+ * Inspired by Laravel
+ *
+ *  @link https://laravel.com/docs/13.x/controllers
+ */
+abstract class Controller
 {
+    use View;
 
-    public function __construct()
+    // /photos
+    public function index()
     {
-        $loader = new FilesystemLoader(TEMPLATE_PATH);
+    }
+    // /photos/create
+    public function create()
+    {
+    }
 
-        $twig = new Environment($loader, ['cache' => CACHE_PATH, 'debug' => true]);
+    // photos
+    public function store()
+    {
+    }
 
-        echo $twig->render('welcome.html.twig', ['name' => 'Fabien']);
+    // photos/{photo}
+    public function show()
+    {
+    }
+
+    // photos/{photo}/edit
+    public function edit()
+    {
+    }
+
+    // photos/{photo}
+    public function update()
+    {
+    }
+
+    // photos/{photo}
+    public function destroy()
+    {
     }
 
 }

@@ -2,16 +2,19 @@
 
 namespace app\controllers;
 
-class UserController
+use app\controllers\Controller;
+
+class UserController extends Controller
 {
 
-public function __construct()
+    public function __construct()
     {
-      parent::__construct();
+        parent::__construct();
     }
 
     public function index()
-        {
-            echo 'Hello World';
-        }
+    {
+        echo 'Hello World';
+    }
+
 }

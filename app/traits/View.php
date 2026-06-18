@@ -2,7 +2,7 @@
 
 namespace app\traits;
 
-use core\views\Twig;
+use core\support\Twig;
 
 trait View
 {

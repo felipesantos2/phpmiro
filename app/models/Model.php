@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\entities\Entity;
+use core\database\Connection;
 
 abstract class Model {
 
@@ -50,8 +51,20 @@ abstract class Model {
         );
     }
 
-    public function all(): array {
+    public function all() {
         // retorna todos os registros de uma tabela
+        // $keys = implode(', ', array_keys($data));
+        // $placeholder = implode(', ',
+        //     array_map(function($key) {
+        //         return ":$key";
+        //     }, array_keys($data))
+        // );
+        // $data = [];
+
+        // return $this->rawQuery(
+        //     query: "INSERT INTO {$this->table} ({$keys}) VALUES ({$placeholder})",
+        //     params: (array) $data
+        // );
     }
 
     public function getById(int|string $id): static {
@@ -92,8 +105,18 @@ abstract class Model {
 
         // executar a query com os parâmetros
 
+        //    $pdo = Connection::getConnection();
+
+        //    dd($pdo);
+
+        $pdo = Connection::getConnection();
+
+        $stmt = $pdo->prepare($query);
+
+        $result = $stmt->execute((array) $params);
+
         // tem ou não tem retorno
-        dd(query: $query, params: $params);
+        dd(query: $query, params: $params, result: $result ?? null);
     }
 
 }

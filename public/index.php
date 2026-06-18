@@ -8,6 +8,8 @@ define('BOOTSTRAP_FILE', __DIR__ . '/../core/bootstrap.php');
 define('ROUTES_FILE', __DIR__ . '/../routes/web.php');
 define('ROUTER_FILE', __DIR__ . '/../core/support/router.php');
 
+define('TWIG_CONF', __DIR__ . '/../core/support/Twig.php');
+
 define('PUBLIC_FILE', __DIR__ . './index.php');
 
 define('TEMPLATE_PATH', __DIR__ . '/../app/views');
@@ -25,6 +27,8 @@ if(file_exists(BOOTSTRAP_FILE)) {
     require ROUTER_FILE;
 
     require ROUTES_FILE;
+
+    require TWIG_CONF;
 
 } else {
 

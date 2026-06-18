@@ -18,7 +18,11 @@ class UserEntity extends Entity
 
     private function normalize() {
         $this->status = (int) $this->status;
-        $this->createdAt = $this->createdAt instanceof DateTime ? $this->createdAt->format('Y-m-d H:i:s') : $this->createdAt;
+
+        $this->createdAt = $this->createdAt instanceof DateTime ?
+            $this->createdAt->format('Y-m-d H:i:s') :
+            $this->createdAt;
+
         $this->password = password_hash($this->password, PASSWORD_DEFAULT);
         $this->email = strtolower($this->email);
         $this->name = ucfirst(trim($this->name));

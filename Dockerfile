@@ -12,6 +12,8 @@ RUN apk update && apk upgrade && apk clean cache
 
 RUN apk add --no-cache build-base ca-certificates openssl tar unzip zip
 
+RUN docker-php-ext-install mysqli pdo pdo_mysql
+
 RUN apk add --no-cache bash \
     git \
     curl \

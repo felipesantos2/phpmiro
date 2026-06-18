@@ -2,13 +2,50 @@
 
 namespace app\models;
 
+use app\entities\Entity;
+
 abstract class Model {
 
-    protected static ?string $table = null;
+    private ?string $table = null;
+
+    // public ?Entity $entity = null;
 
     public function __construct()
     {
-        // throw new \Exception('Not implemented');
+        $this->table = $this->table();
+    }
+
+    private function table(): string {
+
+        $className = get_called_class();
+        $className = explode('\\', $className);
+        $className = end($className);
+
+        return strtolower($className) . 's';
+    }
+
+    private function entity(): Entity {
+
+        $className = get_called_class();
+        $className = explode('\\', $className);
+        $className = '\\app\\entities\\' .  end($className) . 'Entity';
+
+        return new $className();
+    }
+
+    public function create(array $data): void {
+        $keys = implode(', ', array_keys($data));
+        $placeholder = array_map(function($key) {
+            return ":$key";
+        }, array_keys($data));
+        $placeholder = implode(', ', $placeholder);
+
+        $data = new $this->entity(...$data);
+
+        $this->rawQuery(
+            query: "INSERT INTO {$this->table} ({$keys}) VALUES ({$placeholder})",
+            params: $data
+        );
     }
 
     public function all(): array {
@@ -46,8 +83,9 @@ abstract class Model {
         // ])
     }
 
-    public function rawQuery(string $query, ?array $params = []): mixed {
+    private function rawQuery(string $query, array|Entity|null $params = []): void {
         // executa uma query bruta no banco de dados
+        dd(query: $query, params: $params);
     }
 
 }

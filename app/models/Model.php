@@ -12,10 +12,10 @@ abstract class Model {
 
     public function __construct()
     {
-        $this->table = $this->table();
+        $this->table = $this->getTable();
     }
 
-    private function table(): string {
+    private function getTable(): string {
 
         $className = get_called_class();
         $className = explode('\\', $className);
@@ -24,27 +24,29 @@ abstract class Model {
         return strtolower($className) . 's';
     }
 
-    private function entity(): Entity {
+    private function getEntity(?array $data = []): Entity {
 
         $className = get_called_class();
         $className = explode('\\', $className);
         $className = '\\app\\entities\\' .  end($className) . 'Entity';
 
-        return new $className();
+        return new $className(...$data);
     }
 
     public function create(array $data): void {
         $keys = implode(', ', array_keys($data));
-        $placeholder = array_map(function($key) {
-            return ":$key";
-        }, array_keys($data));
-        $placeholder = implode(', ', $placeholder);
 
-        $data = new $this->entity(...$data);
+        $placeholder = implode(', ',
+            array_map(function($key) {
+                return ":$key";
+            }, array_keys($data))
+        );
+
+        $data = $this->getEntity($data);
 
         $this->rawQuery(
             query: "INSERT INTO {$this->table} ({$keys}) VALUES ({$placeholder})",
-            params: $data
+            params: (array) $data
         );
     }
 
@@ -85,6 +87,12 @@ abstract class Model {
 
     private function rawQuery(string $query, array|Entity|null $params = []): void {
         // executa uma query bruta no banco de dados
+
+        // montar query com os placeholders
+
+        // executar a query com os parâmetros
+
+        // tem ou não tem retorno
         dd(query: $query, params: $params);
     }
 

@@ -22,7 +22,7 @@ class WelcomeController extends Controller
 
 
         $user->create([
-            'name' => 'Felipe Santos',
+            'name' => 'Felipe Fantos',
             'email' => 'santos@email.com',
             'password' => '123456',
             'status' => 0,

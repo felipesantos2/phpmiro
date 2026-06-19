@@ -8,7 +8,7 @@ use app\entities\Entity;
 use core\database\Connection;
 use PDO;
 
-abstract class Model
+abstract final class Model
 {
     private ?string $table = null;
 
@@ -84,6 +84,8 @@ abstract class Model
 
     public function getById(int|string $id): Entity|array|null
     {
+        $id = is_string($id) ? (int)$id : $id;
+
         return $this->rawQuery(
             query: "SELECT * FROM {$this->table} WHERE id = :id LIMIT 1",
             params: ['id' => $id]
@@ -97,6 +99,9 @@ abstract class Model
 
     public function find(string $value, string $field = 'id'): Entity|array|null
     {
+        $value = trim((string)$value);
+        $field = trim((string)$field);
+
         return $this->rawQuery(
             query: "SELECT * FROM {$this->table} WHERE {$field} LIKE %:value% ORDER BY id DESC LIMIT 1",
             params: ['value' => $value]
@@ -105,6 +110,8 @@ abstract class Model
 
     public function update(int|string|Entity $field, ?array $data = [])
     {
+        $field = is_string($field) ? (int)$field : $field; // se for entity passa direto
+
         $params = [
             ':id'       => $field instanceof Entity ? $field->id : $field,
             ':name'     => $data['name'] ?? $field->name,

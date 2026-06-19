@@ -28,10 +28,11 @@ services:
       - ./docker/create-first-table.sql:/docker-entrypoint-initdb.d/create-first-table.sql
     networks:
       - miro_network
-      
+
   adminer:
     image: adminer:latest
     container_name: adminermiro
+    restart: always
     environment:
       ADMINER_DEFAULT_SERVER: mysql
     ports:

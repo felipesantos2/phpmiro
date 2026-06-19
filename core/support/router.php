@@ -7,9 +7,7 @@
  * get('/welcome', 'WelcomeController@index');
  * get('/usuarios', [UserController::class, 'index']);
  * get('/usuarios', fn() => 'Hello World' );
- *
  */
-
 function get(string $path, Closure|string|array $callback): mixed
 {
     $queryString = $_SERVER['QUERY_STRING'] ?? null;
@@ -18,35 +16,35 @@ function get(string $path, Closure|string|array $callback): mixed
     $host = $_SERVER['HTTP_HOST'] ?? null;
     $acceptTypes = $_SERVER['HTTP_ACCEPT'] ?? null;
 
-    if($path === $uri) {
+    if ($path === $uri) {
 
-        if( is_string($callback) ) {
+        if (is_string($callback)) {
 
             $splited = explode('@', $callback);
-            $className = '\\app\\controllers\\'. $splited[0];
+            $className = '\\app\\controllers\\' . $splited[0];
             $methodName = $splited[1];
-            $controller = new $className();
+            $controller = new $className;
 
             return call_user_func_array([$controller, $methodName], []);
         }
 
-        if( is_array($callback) ) {
+        if (is_array($callback)) {
 
             $className = $callback[0];
             $methodName = $callback[1];
-            $controller = new $className();
+            $controller = new $className;
 
             return call_user_func_array([$controller, $methodName], []);
         }
 
-        if( $callback instanceof \Closure ) {
+        if ($callback instanceof Closure) {
             return call_user_func_array($callback, []);
         }
 
-        return "500 Internal Server Error";
+        return '500 Internal Server Error';
 
     } else {
-        return "500 Internal Server Error";
+        return '500 Internal Server Error';
     }
 
     return null;
@@ -60,24 +58,24 @@ function post(string $path, Closure|string|array $callback): mixed
     $host = $_SERVER['HTTP_HOST'] ?? null;
     $acceptTypes = $_SERVER['HTTP_ACCEPT'] ?? null;
 
-    if($path === $uri) {
+    if ($path === $uri) {
 
-        if( is_string($callback) ) {
+        if (is_string($callback)) {
             return call_user_func($callback);
         }
 
-        if( is_array($callback) ) {
+        if (is_array($callback)) {
             return call_user_func_array($callback, []);
         }
 
-        if( $callback instanceof \Closure ) {
-            return $callback();;
+        if ($callback instanceof Closure) {
+            return $callback();
         }
 
-        return "500 Internal Server Error";
+        return '500 Internal Server Error';
 
     } else {
-        return "500 Internal Server Error";
+        return '500 Internal Server Error';
     }
 
     return null;

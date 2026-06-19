@@ -2,8 +2,8 @@
 
 namespace app\commands;
 
-interface ICommand {
-
+interface ICommand
+{
     public string $name;
 
     public function execute();

@@ -6,17 +6,25 @@ use DateTime;
 
 class UserEntity extends Entity
 {
+    public ?int $id = null;
+
+    public ?string $name = null;
+
+    public ?string $email = null;
+
+    public ?string $password = null;
+
+    public int|string|null $status = null;
+
+    public DateTime|string|null $createdAt = null;
+
     public function __construct(
-        public ?string $name = null,
-        public ?string $email = null,
-        public ?string $password = null,
-        public int|string|null $status = null,
-        public DateTime|string|null $createdAt = new DateTime(),
     ) {
-        $this->normalize();
+        // $this->normalize();
     }
 
-    private function normalize() {
+    private function normalize(): void
+    {
         $this->status = (int) $this->status;
 
         $this->createdAt = $this->createdAt instanceof DateTime ?
@@ -26,5 +34,12 @@ class UserEntity extends Entity
         $this->password = password_hash($this->password, PASSWORD_DEFAULT);
         $this->email = strtolower($this->email);
         $this->name = ucfirst(trim($this->name));
+    }
+
+    public function __set(string $name, mixed $value): void
+    {
+        $this->createdAt = $name === 'created_at' ?
+            new DateTime($value)->format('Y-m-d H:i:s') :
+            $value;
     }
 }

@@ -2,19 +2,16 @@
 
 namespace app\controllers;
 
-use app\controllers\Controller;
+use app\models\User;
 
 class UserController extends Controller
 {
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
+    public function __construct() {}
 
     public function index()
     {
-        echo 'Hello World';
-    }
 
+        dd(new User()->all());
+        // finalizar o método update do Model
+    }
 }

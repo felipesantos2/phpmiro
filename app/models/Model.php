@@ -1,22 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
 namespace app\models;
 
 use app\entities\Entity;
 use core\database\Connection;
+use PDO;
 
-abstract class Model {
-
+abstract class Model
+{
     private ?string $table = null;
 
-    // public ?Entity $entity = null;
+    public Entity|string|null $entity = null;
 
     public function __construct()
     {
         $this->table = $this->getTable();
+        $this->entity = $this->getEntity()::class;
     }
 
-    private function getTable(): string {
+    private function getTable(): string
+    {
 
         $className = get_called_class();
         $className = explode('\\', $className);
@@ -25,20 +30,22 @@ abstract class Model {
         return strtolower($className) . 's';
     }
 
-    private function getEntity(?array $data = []): Entity {
+    private function getEntity(?array $data = []): Entity
+    {
 
         $className = get_called_class();
         $className = explode('\\', $className);
-        $className = '\\app\\entities\\' .  end($className) . 'Entity';
+        $className = '\\app\\entities\\' . end($className) . 'Entity';
 
         return new $className(...$data);
     }
 
-    public function create(array $data): void {
+    public function create(array $data): void
+    {
         $keys = implode(', ', array_keys($data));
 
         $placeholder = implode(', ',
-            array_map(function($key) {
+            array_map(function ($key) {
                 return ":$key";
             }, array_keys($data))
         );
@@ -51,72 +58,79 @@ abstract class Model {
         );
     }
 
-    public function all() {
-        // retorna todos os registros de uma tabela
-        // $keys = implode(', ', array_keys($data));
-        // $placeholder = implode(', ',
-        //     array_map(function($key) {
-        //         return ":$key";
-        //     }, array_keys($data))
-        // );
-        // $data = [];
-
-        // return $this->rawQuery(
-        //     query: "INSERT INTO {$this->table} ({$keys}) VALUES ({$placeholder})",
-        //     params: (array) $data
-        // );
+    public function all(): array
+    {
+        return $this->rawQuery(
+            query: "SELECT * FROM {$this->table}",
+            params: []
+        );
     }
 
-    public function getById(int|string $id): static {
-        // retorna um registro pelo ID
+    public function first(): Entity|array|null
+    {
+        return $this->rawQuery(
+            query: "SELECT * FROM {$this->table} ORDER BY id ASC LIMIT 1",
+            params: []
+        )[0];
     }
 
-    public function find(): static {
-        // não sei ainda, mas é para retornar um registro pelo ID ou por outro campo
+    public function last(): Entity|array|null
+    {
+        return $this->rawQuery(
+            query: "SELECT * FROM {$this->table} ORDER BY id DESC LIMIT 1",
+            params: []
+        )[0];
     }
 
-    public function findById(int|string $id): static {
-        // procura pelo ID
+    public function getById(int|string $id): Entity|array|null
+    {
+        return $this->rawQuery(
+            query: "SELECT * FROM {$this->table} WHERE id = :id LIMIT 1",
+            params: ['id' => $id]
+        )[0];
     }
 
-    public function first(): static {
-        // procura o primeiro registro da tabela
+    public function findById(int|string $id): Entity|array|null
+    {
+        return $this->getById($id);
     }
 
-    public function last(): static {
-        // procura o último registro da tabela
+    public function find(string $value, string $field = 'id'): Entity|array|null
+    {
+        return $this->rawQuery(
+            query: "SELECT * FROM {$this->table} WHERE {$field} LIKE %:value% ORDER BY id DESC LIMIT 1",
+            params: ['value' => $value]
+        );
     }
 
-    public function update(int|string $id, ?array $data): void {
-        // não sei ainda, mas é para atualizar um registro pelo ID
-        // User::update($id, [
-        //    'name' => 'Felipe Santos',
-        // ])
-        // ou
-        // $this->user->update([
-        //    'name' => 'Felipe Santos'
-        // ])
+    public function update(int|string|Entity $field, ?array $data = [])
+    {
+        $params = [
+            ':id'       => $field instanceof Entity ? $field->id : $field,
+            ':name'     => $data['name'] ?? $field->name,
+            ':email'    => $data['email'] ?? $field->email,
+            ':password' => $data['password'] ?? $field->password,
+            ':status'   => $data['status'] ?? $field->status,
+        ];
+
+        return $this->rawQuery(
+            query: "UPDATE FROM {$this->table} SET name = :name, email = :email, password = :password, status = :status WHERE id = :id",
+            params: $params
+        );
     }
 
-    private function rawQuery(string $query, array|Entity|null $params = []): void {
-        // executa uma query bruta no banco de dados
+    private function rawQuery(string $query, array|Entity|null $params = []): array|object|null
+    {
+        try {
+            $pdo = Connection::getConnection();
 
-        // montar query com os placeholders
+            $stmt = $pdo->prepare($query);
+            $stmt->execute($params);
+            $result = $stmt->fetchAll(PDO::FETCH_CLASS, $this->entity);
 
-        // executar a query com os parâmetros
-
-        //    $pdo = Connection::getConnection();
-
-        //    dd($pdo);
-
-        $pdo = Connection::getConnection();
-
-        $stmt = $pdo->prepare($query);
-
-        $result = $stmt->execute((array) $params);
-
-        // tem ou não tem retorno
-        dd(query: $query, params: $params, result: $result ?? null);
+            return $result;
+        } catch (\PDOException $e) {
+            dd(error: $e->getMessage(), query: $query, params: $params);
+        }
     }
-
 }

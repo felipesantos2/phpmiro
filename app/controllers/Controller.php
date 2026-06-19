@@ -24,37 +24,23 @@ abstract class Controller
     use View;
 
     // /photos
-    public function index()
-    {
-    }
+    public function index() {}
+
     // /photos/create
-    public function create()
-    {
-    }
+    public function create() {}
 
     // photos
-    public function store()
-    {
-    }
+    public function store() {}
 
     // photos/{photo}
-    public function show()
-    {
-    }
+    public function show() {}
 
     // photos/{photo}/edit
-    public function edit()
-    {
-    }
+    public function edit() {}
 
     // photos/{photo}
-    public function update()
-    {
-    }
+    public function update() {}
 
     // photos/{photo}
-    public function destroy()
-    {
-    }
-
+    public function destroy() {}
 }

@@ -16,7 +16,7 @@ class Twig
         $loader = new FilesystemLoader(TEMPLATE_PATH);
 
         $this->twig = new Environment($loader, [
-            'cache' => CACHE_PATH,
+            'cache'       => CACHE_PATH,
             'auto_reload' => true,
         ]);
 

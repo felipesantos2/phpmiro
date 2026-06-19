@@ -1,0 +1,12 @@
+
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v "$(pwd):/var/www/html" \
+    -w /var/www/html \
+    composer/composer:latest \
+    composer require symfony/dotenv
+
+composer require --dev phpunit/phpuni
+composer require symfony/var-dumper
+composer require "twig/twig:^3.0"
+docker compose exec php  cat /etc/hosts

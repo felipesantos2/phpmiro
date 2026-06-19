@@ -3,6 +3,7 @@ create table users (
     id int auto_increment primary key,
     name varchar(200) not null,
     email varchar(200) null unique,
+    email tinyint null default 0,
     password varchar(200) null,
   	deleted_at datetime null,
   	created_at datetime null default current_timestamp,

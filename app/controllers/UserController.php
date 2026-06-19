@@ -10,8 +10,19 @@ class UserController extends Controller
 
     public function index()
     {
+        $data = [
+            'name'     => 'Felipe Pinheiro dos Santos',
+            'email'    => 'felipe@email.com',
+            'password' => '123456789',
+            'status'   => 1,
+        ];
 
-        dd(new User()->all());
+        $user = new User;
+
+        $user->update(new User()->first(), $data); // data por ser array on Entity
+
+        dd($user);
+
         // finalizar o método update do Model
     }
 }

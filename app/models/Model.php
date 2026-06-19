@@ -8,7 +8,7 @@ use app\entities\Entity;
 use core\database\Connection;
 use PDO;
 
-abstract final class Model
+abstract class Model
 {
     private ?string $table = null;
 
@@ -84,7 +84,7 @@ abstract final class Model
 
     public function getById(int|string $id): Entity|array|null
     {
-        $id = is_string($id) ? (int)$id : $id;
+        $id = is_string($id) ? (int) $id : $id;
 
         return $this->rawQuery(
             query: "SELECT * FROM {$this->table} WHERE id = :id LIMIT 1",
@@ -99,8 +99,8 @@ abstract final class Model
 
     public function find(string $value, string $field = 'id'): Entity|array|null
     {
-        $value = trim((string)$value);
-        $field = trim((string)$field);
+        $value = trim((string) $value);
+        $field = trim((string) $field);
 
         return $this->rawQuery(
             query: "SELECT * FROM {$this->table} WHERE {$field} LIKE %:value% ORDER BY id DESC LIMIT 1",
@@ -108,20 +108,28 @@ abstract final class Model
         );
     }
 
-    public function update(int|string|Entity $field, ?array $data = [])
+    /**
+     * UPDATE method that makes basic use of a rudimentary Hydration system
+     * We receive the ID of a record or an Entity instance and its data
+     */
+    public function update(int|string|Entity $field, array|Entity $data = []): static
     {
-        $field = is_string($field) ? (int)$field : $field; // se for entity passa direto
+        $field = is_string($field) ? (int) $field : $field; // se for entity passa direto
+
+        $data = $data instanceof Entity ?
+            $data :
+            static::hydrate($this->entity, $data);
 
         $params = [
             ':id'       => $field instanceof Entity ? $field->id : $field,
-            ':name'     => $data['name'] ?? $field->name,
-            ':email'    => $data['email'] ?? $field->email,
-            ':password' => $data['password'] ?? $field->password,
-            ':status'   => $data['status'] ?? $field->status,
+            ':name'     => $data->name ?? $field->name,
+            ':email'    => $data->email ?? $field->email,
+            ':password' => $data->password ?? $field->password,
+            ':status'   => $data->status ?? $field->status,
         ];
 
         return $this->rawQuery(
-            query: "UPDATE FROM {$this->table} SET name = :name, email = :email, password = :password, status = :status WHERE id = :id",
+            query: "UPDATE {$this->table} SET name = :name, email = :email, password = :password, status = :status WHERE id = :id",
             params: $params
         );
     }
@@ -139,5 +147,19 @@ abstract final class Model
         } catch (\PDOException $e) {
             dd(error: $e->getMessage(), query: $query, params: $params);
         }
+    }
+
+    private static function hydrate(string $class, array $data = []): object
+    {
+
+        $instance = new $class;
+
+        foreach ($data as $key => $value) {
+            if (property_exists($instance, $key)) {
+                $instance->$key = $value;
+            }
+        }
+
+        return $instance ?? null;
     }
 }

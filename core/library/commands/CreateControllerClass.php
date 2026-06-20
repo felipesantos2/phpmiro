@@ -35,7 +35,7 @@ class CreateControllerClass extends Command
             $arg = str_replace('c', 'C', $arg);
         }
 
-        GeneratorControllerClass::make([
+        $controller = GeneratorControllerClass::make([
             'name'    => $arg,
             'methods' => true,
         ]);
@@ -47,6 +47,7 @@ class CreateControllerClass extends Command
         // $io->success('You have a new command that you can trigger from the console!');
 
         $io->note(sprintf('You passed an argument: %s', $arg));
+        // $io->note($controller);
 
         return Command::SUCCESS;
     }

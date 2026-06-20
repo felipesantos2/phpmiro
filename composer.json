@@ -1,4 +1,5 @@
 {
+     "version": "11.0.0",
     "name": "testes/app",
     "require": {
         "symfony/dotenv": "^8.1",

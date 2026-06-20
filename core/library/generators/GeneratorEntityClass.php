@@ -2,7 +2,7 @@
 
 namespace core\library\generators;
 
-class GeneratorControllerClass
+class GeneratorEntityClass
 {
     public static function make(array $data = []): ?string
     {
@@ -11,9 +11,9 @@ class GeneratorControllerClass
         $basic = <<<CLASS
             <?php
 
-            namespace app\controllers;
+            namespace app\entities;
 
-            class {$name} extends Controller {}
+            class {$name} extends Entity {}
         CLASS;
 
         return $basic;

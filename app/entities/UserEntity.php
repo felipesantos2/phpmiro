@@ -36,16 +36,4 @@ class UserEntity extends Entity
     //     $this->name = ucfirst(trim($this->name));
     // }
 
-    public function __set(string $name, mixed $value): void
-    {
-        if (property_exists($this, $name)) {
-            $this->$name = $value;
-        }
-
-        if ($name === 'created_at') {
-            $this->createdAt = new DateTime($value);
-
-            return;
-        }
-    }
 }

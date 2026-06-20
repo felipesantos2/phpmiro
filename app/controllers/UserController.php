@@ -21,7 +21,7 @@ class UserController extends Controller
 
         $user->update(new User()->first(), $data); // data por ser array on Entity
 
-        dd($user);
+        dd($user, new User()->find('Felipe', 'name'));
 
         // finalizar o método update do Model
     }

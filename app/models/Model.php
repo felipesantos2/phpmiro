@@ -103,8 +103,8 @@ abstract class Model
         $field = trim((string) $field);
 
         return $this->rawQuery(
-            query: "SELECT * FROM {$this->table} WHERE {$field} LIKE %:value% ORDER BY id DESC LIMIT 1",
-            params: ['value' => $value]
+            query: "SELECT * FROM {$this->table} WHERE {$field} LIKE :value ORDER BY id DESC LIMIT 1",
+            params: ['value' => "%{$value}%"]
         );
     }
 
@@ -112,7 +112,7 @@ abstract class Model
      * UPDATE method that makes basic use of a rudimentary Hydration system
      * We receive the ID of a record or an Entity instance and its data
      */
-    public function update(int|string|Entity $field, array|Entity $data = []): static
+    public function update(int|string|Entity $field, array|Entity $data = []): mixed
     {
         $field = is_string($field) ? (int) $field : $field; // se for entity passa direto
 

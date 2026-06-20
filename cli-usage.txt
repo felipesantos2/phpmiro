@@ -1,0 +1,2 @@
+php bin/miro make:controller HomeController
+./bin/miro make:controller HomeController

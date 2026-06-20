@@ -1,0 +1,16 @@
+#!/usr/bin/env php
+<?php
+
+use core\library\commands\CreateControllerClass;
+use Symfony\Component\Console\Application;
+
+require __DIR__.'/../vendor/autoload.php';
+
+$app = new Application();
+
+$app->addCommand(new CreateControllerClass());
+
+$app->run();
+
+
+

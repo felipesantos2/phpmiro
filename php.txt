@@ -1,7 +1,7 @@
 # Pontos de estudo dentro do PHP que ainda estão meio sombrios
 
 ## OOP e Modelagem
-- [ ] Classes finais (final)
+- [x] Classes finais (final)
 - [ ] Classes abstratas e métodos abstratos
 - [ ] Interfaces e contratos
 - [ ] Traits
@@ -14,7 +14,7 @@
 - [ ] Métodos mágicos (__construct, __call, __get, __set, __invoke...)
 - [ ] Constantes mágicas (__FILE__, __DIR__, __METHOD__...)
 - [ ] Namespaces e autoload
-- [ ] Reflection API
+- [x] Reflection API
 - [ ] Attributes (PHP 8+)
 - [ ] Enums (PHP 8.1+)
 
@@ -26,7 +26,7 @@
 - [ ] DTOs
 
 ## Dados e persistência
-- [ ] Hidratação de dados
+- [x] Hidratação de dados
 - [ ] Serialização e desserialização
 - [ ] Mapeamento objeto ↔ array
 - [ ] Mapeamento objeto ↔ banco (ORM)

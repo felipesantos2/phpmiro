@@ -18,22 +18,18 @@ class UserEntity extends Entity
 
     public DateTime|string|null $createdAt = null;
 
-    public function __construct(
-    ) {
-        // $this->normalize();
+    public function __construct() {}
+
+    public function __set(string $name, mixed $value): void
+    {
+        if (property_exists($this, $name)) {
+            $this->$name = $value;
+        }
+
+        if ($name === 'created_at') {
+            $this->createdAt = new DateTime($value);
+
+            return;
+        }
     }
-
-    // private function normalize(): void
-    // {
-    //     $this->status = (int) $this->status;
-
-    //     $this->createdAt = $this->createdAt instanceof DateTime ?
-    //         $this->createdAt->format('Y-m-d H:i:s') :
-    //         $this->createdAt;
-
-    //     $this->password = password_hash($this->password, PASSWORD_DEFAULT);
-    //     $this->email = strtolower($this->email);
-    //     $this->name = ucfirst(trim($this->name));
-    // }
-
 }

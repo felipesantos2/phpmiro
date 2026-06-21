@@ -8,9 +8,7 @@ define('VENDOR_FILE', __DIR__ . '/../vendor/autoload.php');
 define('BOOTSTRAP_FILE', __DIR__ . '/../core/bootstrap.php');
 
 define('ROUTES_FILE', __DIR__ . '/../routes/web.php');
-define('ROUTER_FILE', __DIR__ . '/../core/support/router.php');
-
-define('TWIG_CONF', __DIR__ . '/../core/support/Twig.php');
+define('ROUTER_FILE', __DIR__ . '/../core/libray/router.php');
 
 define('PUBLIC_FILE', __DIR__ . './index.php');
 
@@ -25,6 +23,7 @@ if (file_exists(BOOTSTRAP_FILE)) {
 
     require VENDOR_FILE;
 
+    // TODO: remove this
     $dotenv = new Dotenv;
     // Load a single .env file
     $dotenv->load(__DIR__ . '/../.env');
@@ -32,8 +31,6 @@ if (file_exists(BOOTSTRAP_FILE)) {
     require ROUTER_FILE;
 
     require ROUTES_FILE;
-
-    require TWIG_CONF;
 
 } else {
     http_response_code(500);

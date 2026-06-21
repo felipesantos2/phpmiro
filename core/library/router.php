@@ -16,7 +16,7 @@ function get(string $path, Closure|string|array $callback): mixed
     $host = $_SERVER['HTTP_HOST'] ?? null;
     $acceptTypes = $_SERVER['HTTP_ACCEPT'] ?? null;
 
-    if ($path === $uri) {
+    if ($path === $uri && $method == 'GET') {
 
         if (is_string($callback)) {
 
@@ -41,13 +41,15 @@ function get(string $path, Closure|string|array $callback): mixed
             return call_user_func_array($callback, []);
         }
 
-        return '500 Internal Server Error';
+        http_response_code(404);
 
-    } else {
-        return '500 Internal Server Error';
+        return '404 Not Found';
+
     }
+    http_response_code(404);
 
-    return null;
+    return '404 Not Found';
+
 }
 
 function post(string $path, Closure|string|array $callback): mixed
@@ -58,7 +60,7 @@ function post(string $path, Closure|string|array $callback): mixed
     $host = $_SERVER['HTTP_HOST'] ?? null;
     $acceptTypes = $_SERVER['HTTP_ACCEPT'] ?? null;
 
-    if ($path === $uri) {
+    if ($path === $uri && $method == 'GET') {
 
         if (is_string($callback)) {
             return call_user_func($callback);

@@ -120,6 +120,7 @@ abstract class Model
             $data :
             static::hydrate($this->entity, $data);
 
+        // TODO: remove this fixed user params
         $params = [
             ':id'       => $field instanceof Entity ? $field->id : $field,
             ':name'     => $data->name ?? $field->name,
@@ -132,6 +133,24 @@ abstract class Model
             query: "UPDATE {$this->table} SET name = :name, email = :email, password = :password, status = :status WHERE id = :id",
             params: $params
         );
+    }
+
+    // TODO: remover o execute deste método
+    public function count(): ?int
+    {
+        $pdo = Connection::getConnection();
+        $query = "SELECT count(*) FROM {$this->table}";
+
+        try {
+            $stmt = $pdo->prepare($query);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_COLUMN);
+
+            return $result;
+        } catch (\PDOException $e) {
+            dd(error: $e->getMessage(), query: $query);
+        }
+
     }
 
     private function rawQuery(string $query, array|Entity|null $params = []): array|object|null

@@ -32,5 +32,3 @@ RUN curl -sS https://getcomposer.org/installer -o composer-setup.php && \
     rm -rf composer-setup.php
 
 EXPOSE 8000
-
-# CMD [ "php", "-S", "0.0.0.0:8000", "-t",  "public/index.php" ]

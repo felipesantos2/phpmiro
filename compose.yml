@@ -4,13 +4,14 @@ services:
     container_name: phpmiro
     build:
       context: .
+    user: '${UID}:${GID}'
     ports:
       - '8000:8000'
     volumes:
       - '.:/app'
     extra_hosts: # permite o docker acessar o host da maquina. Ex: podemos acessart um mysql rodando diretamente no PC, fora de um container.
       - 'host.docker.internal:host-gateway'
-    command: ["php", "-S", "0.0.0.0:8000", "-t", "public/"]
+    command: [ "php", "-S", "0.0.0.0:8000", "-t", "public/"]
     networks:
       - miro_network
 

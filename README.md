@@ -1,4 +1,4 @@
-# PHPMIRO 🐘
+# PHPMIRO 🎯🐘
 
 Um simplista, pequeno e bem prático micro-framework construido em PHP. Uma arquitetura em camadas que faz um pequeno incremento no MVC padrão, utilizando outros padrões que extendem bastante o model, controller e as views.
 
@@ -18,7 +18,7 @@ O projeto pode ser executado rapidamente com o `docker`. Só é necessário ter 
 
 Podemos conferir isso no `Dockerfile` e no `compose.yml`.
 
-Subindo o ambiente:
+### Subindo o Ambiente 🚀:
 
 ```bash
 docker compose up -d
@@ -27,4 +27,4 @@ docker compose up -d
 docker exec -it phpmiro composer install
 ```
 
-🚀 🚀 🚀 🚀 🚀 🚀 🚀 🚀 🚀 🚀 
+

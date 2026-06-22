@@ -9,7 +9,8 @@ class Phone
             return $this->phone;
         }
 
-        set {
+        set(?string $value) {
+            $this->phone = $value;
         }
     }
 }

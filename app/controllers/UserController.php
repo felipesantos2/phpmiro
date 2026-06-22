@@ -3,40 +3,30 @@
 namespace app\controllers;
 
 use app\dtos\CreateUserDTO;
-use app\models\User;
-use app\ValueObjects\Cpf;
-use app\ValueObjects\Email;
+use app\services\CreateUserService;
+use app\valueObjects\Cpf;
+use app\valueObjects\Email;
 
 class UserController extends Controller
 {
-    private ?CreateUserDTO $userDTO = null;
-
-    public function index()
+    public function index(): mixed
     {
-
-        $user = $this->userDTO = new CreateUserDTO(
+        $userDTO = new CreateUserDTO(
             'Felipe',
             new Email('santospinheiro6@gmail.com'),
             new Cpf('12315466799'),
             '123456789',
             0,
         );
+        // chama a service
 
-        dd($user);
+        $userService = new CreateUserService;
 
-        $data = [
-            'name'     => 'Felipe Pinheiro dos Santos',
-            'email'    => 'felipe@email.com',
-            'password' => '123456789',
-            'status'   => 1,
-        ];
+        $created = $userService->createUser($userDTO);
 
-        $user = new User;
+        // view
+        // faz retorno de uma view ou outra resposta
 
-        $user->update(new User()->first(), $data); // data por ser array on Entity
-
-        dd($user, new User()->find('Felipe', 'name'));
-
-        // finalizar o método update do Model
+        return null;
     }
 }

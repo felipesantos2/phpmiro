@@ -46,10 +46,12 @@ function get(string $path, Closure|string|array $callback): mixed
         return '404 Not Found';
 
     }
-    http_response_code(404);
 
-    return '404 Not Found';
+    return null;
 
+    // http_response_code(404);
+
+    // return '404 Not Found';
 }
 
 function post(string $path, Closure|string|array $callback): mixed

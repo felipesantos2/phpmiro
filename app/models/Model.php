@@ -40,7 +40,7 @@ abstract class Model
         return new $className(...$data);
     }
 
-    public function create(array $data): void
+    public function create(array|Entity $data): void
     {
         $keys = implode(', ', array_keys($data));
 

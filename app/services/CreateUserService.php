@@ -2,10 +2,20 @@
 
 namespace app\services;
 
-class CreateUserService
+use app\dtos\DTO;
+use app\entities\UserEntity;
+use app\models\User;
+
+class CreateUserService extends DTO
 {
-    public function __construct()
+    public function __construct() {}
+
+    public function createUser(DTO $user): string
     {
-        throw new \Exception('Not implemented');
+        $entity = new UserEntity($user);
+
+        $model = new User;
+
+        $model->create($entity);
     }
 }

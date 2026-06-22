@@ -4,7 +4,6 @@ namespace app\dtos;
 
 use app\ValueObjects\Cpf;
 use app\ValueObjects\Email;
-use DateTime;
 
 final readonly class CreateUserDTO
 {
@@ -14,6 +13,5 @@ final readonly class CreateUserDTO
         public ?Cpf $cpf = null,
         public ?string $password = null,
         public ?bool $status = null,
-        public ?DateTime $createdAt = null,
     ) {}
 }

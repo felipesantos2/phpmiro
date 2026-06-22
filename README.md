@@ -18,7 +18,7 @@ O projeto pode ser executado rapidamente com o `docker`. Só é necessário ter 
 
 Podemos conferir isso no `Dockerfile` e no `compose.yml`.
 
-### Subindo o Ambiente 🚀:
+### 🚀 Subindo o Ambiente:
 
 ```bash
 docker compose up -d

@@ -1,21 +1,31 @@
 <?php
 
+declare(strict_types=1);
+
 namespace app\services;
 
+use app\dtos\CreateUserDTO;
 use app\dtos\DTO;
 use app\entities\UserEntity;
 use app\models\User;
+use Exception;
 
 class CreateUserService extends DTO
 {
     public function __construct() {}
 
-    public function createUser(DTO $user): string
+    public function createUser(DTO|CreateUserDTO $user)
     {
         $entity = new UserEntity($user);
 
-        $model = new User;
+        $userModel = new User();
 
-        $model->create($entity);
+        $created =  $userModel->create($entity);
+
+        if(!$created) {
+            throw new Exception("User has not created!");
+        }
+
+        retun $created;
     }
 }

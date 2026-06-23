@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace core\database;
 
 use PDO;
@@ -20,7 +22,7 @@ class Connection
         $pass = $_ENV['DB_PASS'] ?? 'root';
         $charset = $_ENV['CHARSET'] ?? 'utf8mb4';
 
-        $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+        $dsn = "mysql:host={$host};dbname={$db};charset={$charset}";
 
         $options = [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,

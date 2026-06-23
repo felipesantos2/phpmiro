@@ -23,6 +23,29 @@
             }
         },
         "no_useless_return": true,
-        "no_closing_tag": true
-    }
+        "no_closing_tag": true,
+        "declare_parentheses": true,
+        "declare_strict_types": true,
+        "fully_qualified_strict_types": true,
+        "explicit_string_variable": true,
+        "combine_consecutive_issets": true,
+        "combine_consecutive_unsets": true,
+        "blank_line_after_opening_tag": true,
+        "array_syntax": {
+            "syntax": "short"
+        },
+        "constant_case": {
+            "case": "lower"
+        },
+        "lowercase_cast": true,
+        "new_with_braces": true,
+        "no_empty_comment": true,
+        "no_superfluous_elseif": true,
+        "no_trailing_whitespace": true,
+        "semicolon_after_instruction": true,
+        "trim_array_spaces": true
+    },
+    "exclude": [
+        "cache"
+    ]
 }

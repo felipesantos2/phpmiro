@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 session_start();
 
 define('VENDOR_FILE', __DIR__ . '/../vendor/autoload.php');

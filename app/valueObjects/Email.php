@@ -1,19 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace app\valueObjects;
 
 final class Email
 {
-    public ?string $email {
+    public ?string $value {
         get {
-            return $this->email;
+            return $this->value;
         }
 
         set(?string $value) {
             if (filter_var($value, FILTER_VALIDATE_EMAIL)) {
-                $this->email = $value;
+                $this->value = $value;
             } else {
-                $this->email = null;
+                $this->value = null;
             }
         }
     }

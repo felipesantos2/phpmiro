@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace app\valueObjects;
 
 class Cpf
 {
-    public ?string $cpf {
+    public ?string $value {
         get {
-            return $this->cpf;
+            return $this->value;
         }
 
         set(?string $value) {
-            $this->cpf = $value;
+            $this->value = $value;
         }
     }
 }

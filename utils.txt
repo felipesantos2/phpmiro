@@ -10,3 +10,6 @@ composer require --dev phpunit/phpuni
 composer require symfony/var-dumper
 composer require "twig/twig:^3.0"
 docker compose exec php  cat /etc/hosts
+
+Algumas regras do laravel PINT
+// https://laravel-news.com/configuring-laravel-pint

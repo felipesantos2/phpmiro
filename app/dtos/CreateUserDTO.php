@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace app\dtos;
 
 use app\ValueObjects\Cpf;
@@ -12,6 +14,6 @@ final readonly class CreateUserDTO
         public Email $email,
         public ?Cpf $cpf = null,
         public ?string $password = null,
-        public ?bool $status = null,
+        public bool|int|null $status = null,
     ) {}
 }

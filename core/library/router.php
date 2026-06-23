@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Ways to Use the Routes
  *
@@ -23,7 +25,7 @@ function get(string $path, Closure|string|array $callback): mixed
             $splited = explode('@', $callback);
             $className = '\\app\\controllers\\' . $splited[0];
             $methodName = $splited[1];
-            $controller = new $className;
+            $controller = new $className();
 
             return call_user_func_array([$controller, $methodName], []);
         }
@@ -32,7 +34,7 @@ function get(string $path, Closure|string|array $callback): mixed
 
             $className = $callback[0];
             $methodName = $callback[1];
-            $controller = new $className;
+            $controller = new $className();
 
             return call_user_func_array([$controller, $methodName], []);
         }

@@ -46,7 +46,7 @@ abstract class Model
 
         $placeholder = implode(', ',
             array_map(function ($key) {
-                return ":$key";
+                return ":{$key}";
             }, array_keys($data))
         );
 
@@ -171,7 +171,7 @@ abstract class Model
     private static function hydrate(string $class, array $data = []): object
     {
 
-        $instance = new $class;
+        $instance = new $class();
 
         foreach ($data as $key => $value) {
             if (property_exists($instance, $key)) {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace app\controllers;
 
 use app\dtos\CreateUserDTO;
@@ -12,15 +14,14 @@ class UserController extends Controller
     public function index(): mixed
     {
         $userDTO = new CreateUserDTO(
-            'Felipe',
+            'Felipe Pinheiro dos Santos',
             new Email('santospinheiro6@gmail.com'),
             new Cpf('12315466799'),
             '123456789',
             0,
         );
-        // chama a service
 
-        $userService = new CreateUserService;
+        $userService = new CreateUserService();
 
         $created = $userService->createUser($userDTO);
 

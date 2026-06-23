@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace app\valueObjects;
 
+use app\exceptions\BasicErrorException;
+
 final class Email
 {
-    public ?string $value {
-        get {
-            return $this->value;
+    public function __construct(private ?string $email) {}
+
+    public function getEmail(): ?string
+    {
+
+        if (! filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+            throw new BasicErrorException('This email is not valid!');
         }
 
-        set(?string $value) {
-            if (filter_var($value, FILTER_VALIDATE_EMAIL)) {
-                $this->value = $value;
-            } else {
-                $this->value = null;
-            }
-        }
+        return $this->email;
     }
 }

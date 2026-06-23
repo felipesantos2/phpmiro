@@ -6,13 +6,11 @@ namespace app\ValueObjects;
 
 class Phone
 {
-    public readonly ?string $phone {
-        get {
-            return $this->phone;
-        }
+    public function __construct(private ?string $phone) {}
 
-        set(?string $value) {
-            $this->phone = $value;
-        }
+    public function getPhone(): ?string
+    {
+
+        return $this->phone;
     }
 }

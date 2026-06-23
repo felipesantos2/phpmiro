@@ -8,7 +8,6 @@ use app\dtos\CreateUserDTO;
 use app\dtos\DTO;
 use app\entities\UserEntity;
 use app\models\User;
-use Exception;
 
 class CreateUserService extends DTO
 {
@@ -16,16 +15,12 @@ class CreateUserService extends DTO
 
     public function createUser(DTO|CreateUserDTO $user)
     {
+
         $entity = new UserEntity($user);
 
         $userModel = new User();
 
-        $created =  $userModel->create($entity);
+        $created = $userModel->create($entity);
 
-        if(!$created) {
-            throw new Exception("User has not created!");
-        }
-
-        retun $created;
     }
 }

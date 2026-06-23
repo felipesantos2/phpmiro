@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace app\entities;
 
 use app\dtos\CreateUserDTO;
+use app\valueObjects\Cpf;
+use app\valueObjects\Email;
 use DateTime;
 
 class UserEntity extends Entity
@@ -13,9 +15,9 @@ class UserEntity extends Entity
 
     public ?string $name = null;
 
-    public ?string $email = null;
+    public string|Email|null $email = null;
 
-    public ?string $cpf = null;
+    public string|Cpf|null $cpf = null;
 
     public ?string $password = null;
 
@@ -26,9 +28,9 @@ class UserEntity extends Entity
     public function __construct(CreateUserDTO $dto)
     {
         $this->name = $dto->name;
-        $this->email = $dto->email->value;
+        $this->email = $dto->email->getEmail();
         $this->password = $dto->password;
-        $this->cpf = $dto->cpf->value;
+        $this->cpf = $dto->cpf->getCPF();
         $this->createdAt = new DateTime()->format('Y-m-d H:i:s');
     }
 

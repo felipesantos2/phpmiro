@@ -4,15 +4,12 @@ declare(strict_types=1);
 
 namespace app\valueObjects;
 
-class Cpf
+final class Cpf
 {
-    public ?string $value {
-        get {
-            return $this->value;
-        }
+    public function __construct(private ?string $cpf) {}
 
-        set(?string $value) {
-            $this->value = $value;
-        }
+    public function getCPF(): ?string
+    {
+        return $this->cpf;
     }
 }

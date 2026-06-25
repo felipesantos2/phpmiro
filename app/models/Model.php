@@ -129,6 +129,7 @@ abstract class Model
             ':status'   => $data->status ?? $field->status,
         ];
 
+
         return $this->rawQuery(
             query: "UPDATE {$this->table} SET name = :name, email = :email, password = :password, status = :status WHERE id = :id",
             params: $params

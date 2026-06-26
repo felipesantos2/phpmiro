@@ -15,6 +15,10 @@ class UserController extends Controller
 {
     public function index()
     {
+        echo '<br>UserController<br>';
+
+        return;
+
         try {
             $userDTO = new CreateUserDTO(
                 'Felipe Pinheiro dos Santos',
@@ -34,5 +38,10 @@ class UserController extends Controller
 
             return;
         }
+    }
+
+    public function store()
+    {
+        echo '1';
     }
 }

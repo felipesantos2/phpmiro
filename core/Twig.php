@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace core\support;
+namespace core;
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;

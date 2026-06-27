@@ -11,6 +11,3 @@ $app = new Application();
 $app->addCommand(new CreateControllerClass());
 
 $app->run();
-
-
-

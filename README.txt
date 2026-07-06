@@ -8,10 +8,10 @@ extra:
     docker compose down
     docker compose down -v or --volumes
     docker ps
-    dokcer ps -a
-    dokcer images
-    dokcer images -a
-    dokcer container ls
+    docker ps -a
+    docker images
+    docker images -a
+    docker container ls
 
     docker exec -it phpmiro bash
 

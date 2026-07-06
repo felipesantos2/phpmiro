@@ -13,6 +13,7 @@ extra:
     dokcer images -a
     dokcer container ls
 
+    docker exec -it phpmiro bash
 
     docker inspect <containerId>
     docker logs <containerId>

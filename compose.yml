@@ -1,50 +1,53 @@
+name: phpmiro
 services:
-  php:
-    image: php84-alpine
-    container_name: phpmiro
-    build:
-      context: .
-    user: '${UID}:${GID}'
-    ports:
-      - '8000:8000'
-    volumes:
-      - '.:/app'
-    extra_hosts: # permite o docker acessar o host da maquina. Ex: podemos acessart um mysql rodando diretamente no PC, fora de um container.
-      - 'host.docker.internal:host-gateway'
-    command: [ "php", "-S", "0.0.0.0:8000", "-t", "public/"]
-    networks:
-      - miro_network
-
-  mysql:
-    image: mysql:8.4.8
-    container_name: mysqlmiro
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: app_dev
-    ports:
-    - '3306:3306'
-    volumes:
-      - mysql_data:/var/lib/mysql
-      - ./docker/create-first-table.sql:/docker-entrypoint-initdb.d/create-first-table.sql
-    networks:
-      - miro_network
-
   adminer:
-    image: adminer:latest
+    image: adminer:5.4.2
     container_name: adminermiro
-    restart: always
     environment:
       ADMINER_DEFAULT_SERVER: mysql
     ports:
       - '8080:8080'
     networks:
       - miro_network
+    restart: always
 
-volumes:
-  mysql_data:
+  mysql:
+    image: mysql:8.4.8
+    container_name: mysqlmiro
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./docker/create-first-table.sql:/docker-entrypoint-initdb.d/create-first-table.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: app_dev
+    ports:
+      - '3306:3306'
+    networks:
+      - miro_network
+    restart: always
+
+  php:
+    build:
+      context: .
+    container_name: phpmiro
+    volumes:
+      - .:/app
+    ports:
+      - '8000:8000'
+    networks:
+      - miro_network
+    extra_hosts:
+      # permite o docker acessar o host da maquina. Ex: podemos acessart um mysql rodando diretamente no PC, fora de um container.
+      - 'host.docker.internal:host-gateway'
+    command: [ "php", "-S", "0.0.0.0:8000", "-t", "public/" ]
+    user: '${UID}:${GID}'
+
 
 networks:
   miro_network:
     driver: bridge
+
+volumes:
+  mysql_data:
+
 

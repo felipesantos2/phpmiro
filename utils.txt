@@ -13,3 +13,9 @@ docker compose exec php  cat /etc/hosts
 
 Algumas regras do laravel PINT
 // https://laravel-news.com/configuring-laravel-pint
+
+
+# cli commands
+php bin/miro make:controller HomeController
+./bin/miro make:controller HomeController
+bash ./bin/miro make:controller HomeController

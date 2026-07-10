@@ -18,7 +18,7 @@ class View
 
         $path = $this->name();
 
-        if (!file_exists($path)) {
+        if (! file_exists($path)) {
             throw new Exception('View File Not Found');
         }
 
@@ -28,7 +28,6 @@ class View
     /**
      * Normalize View Path
      *  ex: pages.photos to pages/fotos
-     * @return string
      */
     private function name(): string
     {
@@ -50,8 +49,6 @@ class View
 
     /**
      * Load the View File
-     *
-     * @return void
      */
     private function load(string $path): void
     {

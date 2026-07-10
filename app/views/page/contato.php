@@ -11,7 +11,6 @@
 
     dd($data);
 
-
 ?>
     Contato
 </body>

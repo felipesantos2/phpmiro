@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 use core\View;
-use core\ViewLoader;
 
 function view(string $view, array $data = []): View
 {
-    return ViewLoader::view($view, $data);
+    return new View($view, $data);
 }

@@ -4,39 +4,61 @@ declare(strict_types=1);
 
 namespace core;
 
+use Exception;
+
+/**
+ * This class resolves and load a view file
+ */
 class View
 {
     public function __construct(
         private string $view,
         private array $data
     ) {
-        if ($this->viewExists()) {
-            $this->loadView();
+
+        $path = $this->name();
+
+        if (!file_exists($path)) {
+            throw new Exception('View File Not Found');
         }
+
+        $this->load($path);
     }
 
-    private function viewName(): string
+    /**
+     * Normalize View Path
+     *  ex: pages.photos to pages/fotos
+     * @return string
+     */
+    private function name(): string
     {
-        return __DIR__ . '/' . $this->view . '.php';
+        $viewPath = $this->view;
+
+        if (strlen($viewPath) <= 2) {
+            throw new Exception('Path is very Short');
+        }
+
+        $fixedPath = str_replace('.', '/', $viewPath);
+
+        $fullPath = dirname(__FILE__)
+            . '/../app/views/'
+            . $fixedPath
+            . '.php';
+
+        return $fullPath;
     }
 
-    private function viewExists(): ?bool
-    {
-        return file_exists($this->viewName()) ?? null;
-    }
-
-    private function loadView(): void
+    /**
+     * Load the View File
+     *
+     * @return void
+     */
+    private function load(string $path): void
     {
         $data = $this->data;
 
-        include $this->viewName();
-    }
-}
+        extract($data);
 
-class ViewLoader
-{
-    public static function view(string $view, array $data = []): View
-    {
-        return new View($view, $data);
+        include $path;
     }
 }

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace app\controllers;
 
-use app\traits\View;
-
 /**
  * Abstract controller with basic methods and a routing pattern
  *
@@ -23,8 +21,6 @@ use app\traits\View;
  */
 abstract class Controller
 {
-    use View;
-
     // /photos
     public function index() {}
 

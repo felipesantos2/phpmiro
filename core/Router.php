@@ -15,7 +15,7 @@ final class Router
         $this->dispatcher = new RouteDispatcher();
     }
 
-    private function add(string $method, string $path,  Route $route)
+    private function add(string $method, string $path, Route $route)
     {
         $this->routes[$method][$path] = $route;
     }

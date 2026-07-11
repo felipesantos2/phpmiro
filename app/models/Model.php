@@ -120,7 +120,7 @@ abstract class Model
             $data :
             static::hydrate($this->entity, $data);
 
-        // TODO: remove this fixed user params
+        // TODO: remove this, fixed user params
         $params = [
             ':id'       => $field instanceof Entity ? $field->id : $field,
             ':name'     => $data->name ?? $field->name,
@@ -153,6 +153,13 @@ abstract class Model
 
     }
 
+    /**
+     * Executes the queries and returns the results
+     *
+     * @param string $query
+     * @param array $params
+     * @return array|object|null
+     */
     private function rawQuery(string $query, array|Entity|null $params = []): array|object|null
     {
         try {
@@ -168,7 +175,14 @@ abstract class Model
         }
     }
 
-    private static function hydrate(string $class, array $data = []): object
+    /**
+     * Converts data to a specific class type, Hydrat
+     *
+     * @param string $class
+     * @param array $data
+     * @return object|null
+     */
+    private static function hydrate(string $class, array $data = []): ?object
     {
 
         $instance = new $class();

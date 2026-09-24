@@ -30,3 +30,13 @@ docker inspect <containerId>
 <!-- aqui você explica o porquê de cada escolha, os problemas que já enfrentou, o que ainda falta -->
 
 `unit` vs `feature` vs `?`
+
+
+
+---
+
+Vamos trocar uma ideia no LinkedIn:
+
+[LinkedIn](https://www.linkedin.com/in/felipepinheiro2/)
+
+---
